@@ -1,0 +1,22 @@
+pipeline {
+agent any
+parameters {
+String(name:  'client', defaultvalue: '', description: 'Client Name',)
+choice(name: 'env', choices:['dev', 'qa', 'non-prod', 'prod'], description:'pass the env',)
+choice(name: 'action', choices: [create', 'delete'], description: 'create or delete operation',)
+choice(name: 'action', choices: ['emr-prereq', 'emr-main', 'rstudio','s3']description: 'template name',))
+string(name: 'SourceImageId', defaultValue:'ami-060fdd0df40eb1a01', description: 'source ami for encryption',)
+string(name: 'BMDToolVersion', defaultValue: '2.3.1', description: 'BMDToolVersion',)
+
+}
+environment {
+region = 'us-east-1'
+}
+stages {
+stage(Deploy') {
+steps {
+        sh "cd EMR && bash ./deploy-stack.sh ${params.client} ${params.env}, ${region},${params.action},${params.stack} ${params.BMDToolVersion} ${params.SourceImageId}" // ${params.BMDToolMinorVersion}"
+                }
+             }
+           } 
+        }
